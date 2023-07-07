@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block header %}
+    <h1 align="center" style="margin-top: 5%; margin-bottom: 30px;">{{ header }}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="content-section">
+                    <form method="POST" action="" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+                        <fieldset class="border p-4">
+                            <legend class="w-auto"> {{ legend }}</legend>
+                            <div class="form-group mt-4">
+                                {{ form.file.label(class="form-control-label") }}
+                                {% if form.file.errors %}
+                                    {{ form.file(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.file.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.file(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-row align-items-center">
+                                <div class="col-auto" style="margin-top: 5%; margin-bottom: 5%;">
+                                    <label class="mr-2" for="{{ form.slider.id }}">Choose the length of the
+                                        summary</label>
+                                    {{ form.slider(class="form-range ", min=10, max=100, step=10) }}
+                                </div>
+                                <div class="col-auto">
+                                    {{ form.submit(class="btn btn-outline-success btn-lg mt-3 mt-md-0") }}
+                                </div>
+                            </div>
+                            <div>{{ summary }}</div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

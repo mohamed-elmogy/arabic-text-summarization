@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block header %}
+    <h1 align="center" style="margin-top: 10%; margin-bottom: 30px;">{{ header }}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="content-section text-center">
+                    <p class="text-muted">
+                    <p>Please choose what you want to summarize</p>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-outline-success btn-lg me-3" href="{{ url_for('Extractive_txt') }}"
+                           role="button">Plain
+                            text summarization</a>
+                        <a class="btn btn-outline-success btn-lg me-3" href="{{ url_for('Extractive_docx') }}"
+                           role="button">Document summarization</a>
+                        <a class="btn btn-outline-success btn-lg me-3" href="{{ url_for('Extractive_ocr') }}"
+                           role="button">Image summarization</a>
+                        <a class="btn btn-outline-success btn-lg" href="{{ url_for('Extractive_voice') }}"
+                           role="button">Voice
+                            summarization</a>
+                    </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
