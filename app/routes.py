@@ -8,8 +8,10 @@ import docx
 import requests
 import json
 
-Abstractive_output_dir = "results-arabart-finetuned-squad-accelerate"
+Abstractive_output_dir = "mohamed-elmogy/AraBART"
 Abstractive_summarizer = pipeline("summarization", model=Abstractive_output_dir)
+Extractive_output_dir = "mohamed-elmogy/AraBART"
+Extractive_summarizer = pipeline("summarization", model=Extractive_output_dir)
 Recognizer = sr.Recognizer()
 
 
@@ -64,7 +66,7 @@ def Extractive_voice():
         percent = float(form.slider.data) / 100
         max_length = len(text.split())
         min_length = math.ceil(percent * len(text.split()))
-        summary = Abstractive_summarizer(text, max_length=max_length, min_length=min_length)[0]["summary_text"]
+        summary = Extractive_summarizer(text, max_length=max_length, min_length=min_length)[0]["summary_text"]
         flash('your voice has been summarized', 'success')
     return render_template('voice.html', title='Extractive Voice Summary',
                            form=form, legend='Voice Summary', summary=summary, header=header)
@@ -101,7 +103,7 @@ def Extractive_docx():
         for para in text:
             max_length = len(para.split())
             min_length = math.ceil(percent * len(para.split()))
-            summary = summary + Abstractive_summarizer(para, max_length=max_length, min_length=min_length)[0][
+            summary = summary + Extractive_summarizer(para, max_length=max_length, min_length=min_length)[0][
                 "summary_text"]
         flash('your document has been summarized', 'success')
     return render_template('Docx.html', title='Extractive docx Summary',
@@ -134,6 +136,7 @@ def Extractive_txt():
         percent = float(form.slider.data) / 100
         max_length = len(text.split())
         min_length = math.ceil(percent * len(text.split()))
+        summary = Extractive_summarizer(text, max_length=max_length, min_length=min_length)[0]["summary_text"]
         flash('your document has been summarized', 'success')
     return render_template('txt.html', title='Extractive text Summary',
                            form=form, legend='Text Summary', summary=summary, header=header)
@@ -167,7 +170,7 @@ def Extractive_ocr():
         percent = float(form.slider.data) / 100
         max_length = len(text.split())
         min_length = math.ceil(percent * len(text.split()))
-        summary = Abstractive_summarizer(text, max_length=max_length, min_length=min_length)[0]["summary_text"]
+        summary = Extractive_summarizer(text, max_length=max_length, min_length=min_length)[0]["summary_text"]
         flash('your image has been summarized', 'success')
     return render_template('ocr.html', title='Abstractive image Summary',
                            form=form, legend='Image Summary', summary=summary, header=header)
@@ -219,19 +222,7 @@ import json
 
 
 def ocr_space_file(image_data, overlay=False, api_key='helloworld', language='ara'):
-    """ OCR.space API request with image data.
-        Python3.5 - not tested on 2.7
-    :param image_data: The image data as bytes.
-    :param overlay: Is OCR.space overlay required in your response.
-                    Defaults to False.
-    :param api_key: OCR.space API key.
-                    Defaults to 'helloworld'.
-    :param language: Language code to be used in OCR.
-                    List of available language codes can be found on https://ocr.space/OCRAPI
-                    Defaults to 'en'.
-    :return: Result as a dictionary.
-    """
-
+   
     payload = {'isOverlayRequired': overlay,
                'apikey': api_key,
                'language': language,
