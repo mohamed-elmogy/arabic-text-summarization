@@ -10,7 +10,7 @@ import json
 
 Abstractive_output_dir = "mohamed-elmogy/results-arabart-finetuned-squad-accelerate"
 Abstractive_summarizer = pipeline("summarization", model=Abstractive_output_dir)
-Extractive_output_dir = "mohamed-elmogy/AraBART"
+Extractive_output_dir = "mohamed-elmogy/results-extractive-mt5-finetuned-sum"
 Extractive_summarizer = pipeline("summarization", model=Extractive_output_dir)
 Recognizer = sr.Recognizer()
 
